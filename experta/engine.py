@@ -75,12 +75,12 @@ class KnowledgeEngine:
             >>> ke.modify(my_fact, _0="hello", _1="world", other_key="!")
 
         """
-        self.retract(declared_fact)
+        idx = self.retract(declared_fact)
 
         newfact = declared_fact.copy()
         newfact.update(dict(self._get_real_modifiers(**modifiers)))
 
-        return self.declare(newfact)
+        return self.declare(newfact, idx=idx)
 
     def duplicate(self, template_fact, **modifiers):
         """Create a new fact from an existing one."""
@@ -121,11 +121,13 @@ class KnowledgeEngine:
         .. note::
             This updates the agenda
         """
-        self.facts.retract(idx_or_declared_fact)
+        idx = self.facts.retract(idx_or_declared_fact)
 
         if not self.running:
             added, removed = self.get_activations()
             self.strategy.update_agenda(self.agenda, added, removed)
+            
+        return idx
 
     def run(self, steps=float('inf')):
         """
@@ -209,7 +211,7 @@ class KnowledgeEngine:
 
         self.running = False
 
-    def __declare(self, *facts):
+    def __declare(self, *facts, idx=None):
         """
         Internal declaration method. Used for ``declare`` and ``deffacts``
         """
@@ -222,7 +224,7 @@ class KnowledgeEngine:
         else:
             last_inserted = None
             for fact in facts:
-                last_inserted = self.facts.declare(fact)
+                last_inserted = self.facts.declare(fact, idx=idx)
 
             if not self.running:
                 added, removed = self.get_activations()
@@ -230,7 +232,7 @@ class KnowledgeEngine:
 
             return last_inserted
 
-    def declare(self, *facts):
+    def declare(self, *facts, idx=None):
         """
         Declare from inside a fact, equivalent to ``assert`` in clips.
 
@@ -241,4 +243,4 @@ class KnowledgeEngine:
 
         if not self.facts:
             watchers.ENGINE.warning("Declaring fact before reset()")
-        return self.__declare(*facts)
+        return self.__declare(*facts, idx=idx)
