@@ -77,7 +77,6 @@ class FactList(OrderedDict):
                 idx = self.last_index
             else:
                 idx = idx
-                
             fact.__factid__ = idx
 
             # Insert the fact in the factlist

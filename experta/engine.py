@@ -126,7 +126,6 @@ class KnowledgeEngine:
         if not self.running:
             added, removed = self.get_activations()
             self.strategy.update_agenda(self.agenda, added, removed)
-            
         return idx
 
     def run(self, steps=float('inf')):
