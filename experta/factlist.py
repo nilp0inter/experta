@@ -47,7 +47,7 @@ class FactList(OrderedDict):
                             for k, v in fact.items()
                             if not fact.is_special(k)])
 
-    def declare(self, fact):
+    def declare(self, fact, idx=None):
         """
         Assert (in clips terminology) a fact.
 
@@ -73,7 +73,10 @@ class FactList(OrderedDict):
 
         if self.duplication or fact_id not in self.reference_counter:
             # Assign the ID to the fact
-            idx = self.last_index
+            if idx is None:
+                idx = self.last_index
+            else:
+                idx = idx
             fact.__factid__ = idx
 
             # Insert the fact in the factlist
