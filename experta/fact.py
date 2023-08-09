@@ -3,6 +3,7 @@ from functools import lru_cache
 import abc
 
 from schema import Schema
+from enum import Enum
 
 from experta.pattern import Bindable
 from experta.utils import freeze, unfreeze
@@ -107,9 +108,14 @@ class Fact(OperableCE, Bindable, dict, metaclass=Validable):
 
     def as_dict(self):
         """Return a dictionary containing this `Fact` data."""
-        return {k: unfreeze(v)
-                for k, v in self.items()
-                if not self.is_special(k)}
+        d = dict()
+        for k, v in self.items():
+            if not self.is_special(k):
+                if isinstance(v, Enum):
+                    d[k] = v.value
+                else:
+                    d[k] = unfreeze(v)
+        return d
 
     def copy(self):
         """Return a copy of this `Fact`."""
