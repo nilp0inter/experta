@@ -1,4 +1,4 @@
-__version__ = '1.9.7'
+__version__ = '1.9.8'
 
 try:
     from .conditionalelement import AND, OR, NOT, TEST, EXISTS, FORALL
