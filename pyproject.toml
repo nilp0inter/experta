@@ -28,6 +28,7 @@ Documentation="https://experta.readthedocs.io/"
 
 [project.optional-dependencies]
 dev = [
+    "pytest-cov",
     "pytest",
     "coverage",
     "hypothesis",
@@ -66,3 +67,36 @@ source = ["experta"]
 
 [tool.coverage.report]
 show_missing = true
+
+#
+[tool.tox]
+envlist = ["py35", "py36", "py37", "py38", "py313","pypy3"]
+requires = ["tox>=4.19"]
+allowlist_externals = ["pytest", "pycodestyle", "coverage"]
+
+[tool.tox.env_run_base]
+description = "Run test under {base_python}"
+deps = [".[dev]"]
+commands=[
+    ["pycodestyle","--show-source","--show-pep8", "experta"],
+    ["coverage","erase"],
+    ["pytest","--cov=experta", "--cov-report=xml", "-m", "not wip", "-v", "tests/unit"],
+    ["coverage", "combine"],
+    ["coverage", "report"],
+    ["coverage", "html"],
+
+    ]
+
+usedevelop = true
+setenv = { "PIPENV_VERBOSITY" = "-1" }
+
+[tool.tox.env.wip]
+deps = [".[dev]"]
+usedevelop = true
+setenv = { "PIPENV_VERBOSITY" = "-1" }
+
+commands = [
+    ["pycodestyle","--show-source","--show-pep8", "experta"],
+    ["pytest","--cov=experta", "--cov-report=xml", "-m", "wip", "-v", "tests/unit"]
+    ]
+        
