@@ -28,7 +28,7 @@ Once you have a copy of the source, you can install it running this command:
 
 .. code-block:: bash
 
-   $ python setup.py install
+   $ pip install -e .
 
 
 .. _`on Github`: https://github.com/nilp0inter/experta
