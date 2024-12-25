@@ -1,0 +1,46 @@
+[project]
+name = "experta"
+version = "1.9.5.dev1"
+description = "Expert Systems for Python"
+readme = "README.rst"
+keywords = ["knowledge-based", "inference", "engine"]
+license = { text = "LGPLv3" }
+classifiers = [
+    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: Implementation :: PyPy"
+]
+authors = [
+    { name = "Roberto Abdelkader Martínez Pérez", email = "robertomartinezp@gmail.com" }
+]
+urls = { "Homepage" = "https://github.com/nilp0inter/experta" }
+requires-python = ">=3.7"
+
+dependencies=[
+"tox",
+"immutabledict == 1.0.0",
+"schema == 0.6.7"
+]
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "coverage",
+    "hypothesis",
+    "hypothesis-pytest",
+    "pycodestyle",
+    "pydocstyle",
+    "codecov",
+    "twine",
+    "ipython"
+]
+
+[build-system] 
+requires = ["flit_core >=3.2,<4"] 
+build-backend = "flit_core.buildapi"
+
+[tool.pytest.ini_options]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')"
+]
