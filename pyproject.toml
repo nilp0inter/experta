@@ -15,7 +15,6 @@ classifiers = [
 authors = [
     { name = "Roberto Abdelkader Martínez Pérez", email = "robertomartinezp@gmail.com" }
 ]
-urls = { "Homepage" = "https://github.com/nilp0inter/experta" }
 requires-python = ">=3.7"
 
 dependencies=[
@@ -23,6 +22,10 @@ dependencies=[
 "immutabledict == 1.0.0",
 "schema == 0.6.7"
 ]
+[project.urls]
+Homepage= "https://github.com/nilp0inter/experta" 
+Documentation="https://experta.readthedocs.io/"
+
 [project.optional-dependencies]
 dev = [
     "pytest",
