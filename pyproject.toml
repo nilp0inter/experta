@@ -45,3 +45,21 @@ build-backend = "flit_core.buildapi"
 markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')"
 ]
+addopts = "--cov=experta --cov-report=xml"
+
+
+
+[tool.pylint]
+disable = "missing-docstring, invalid-name"
+max-line-length = 120
+
+[tool.pycodestyle]
+show_source = true
+show_pep8 = true
+
+[tool.coverage.run]
+branch = true
+source = ["experta"]
+
+[tool.coverage.report]
+show_missing = true
