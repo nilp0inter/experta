@@ -33,7 +33,8 @@ dev = [
     "pydocstyle",
     "codecov",
     "twine",
-    "ipython"
+    "ipython",
+    "build"
 ]
 
 [build-system] 
