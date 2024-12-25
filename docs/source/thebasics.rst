@@ -26,7 +26,7 @@ Let's enumerate some facts about `Facts`, so... metafacts ;)
 
    .. code-block:: python
 
-      >>> Fact(a=1, b=2)  # Order is arbirary :O
+      >>> Fact(a=1, b=2)  # Order is arbitrary :O
       Fact(b=2, a=1)
 
 
