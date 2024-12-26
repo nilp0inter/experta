@@ -1,6 +1,6 @@
 from functools import singledispatch
 
-from frozendict import  frozendict
+from frozendict import frozendict
 
 from .fieldconstraint import P
 
