@@ -1,6 +1,6 @@
 from functools import singledispatch
 
-from immutabledict import immutabledict as frozendict
+from frozendict import  frozendict
 
 from .fieldconstraint import P
 
