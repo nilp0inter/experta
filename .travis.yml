@@ -4,14 +4,16 @@ python:
     - "3.6"
     - "3.7"
     - "3.8"
-install:
-    - pip install pipenv
-    - pipenv install --dev --ignore-pipfile --skip-lock
-    - pipenv run python setup.py develop
+
+install: 
+  - pip install -U pip 
+  - pip install .[dev]
+
 script:
-  - pipenv run pycodestyle --show-source --show-pep8 experta
-  - pipenv run coverage run $(pipenv run which py.test) -m 'not wip' -v tests/unit
-  - pipenv run python setup.py sdist bdist_wheel
+  - pycodestyle --show-source --show-pep8 experta
+  - coverage run -m pytest -m 'not wip' -v tests/unit
+  - python setup.py sdist bdist_wheel
   - twine check dist/*
+
 after_success:
-  - pipenv run codecov
+  - codecov

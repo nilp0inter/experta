@@ -1,0 +1,101 @@
+[project]
+name = "experta"
+version = "1.9.5.dev1"
+description = "Expert Systems for Python"
+readme = "README.rst"
+keywords = ["knowledge-based", "inference", "engine"]
+license = { text = "LGPLv3" }
+classifiers = [
+    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence"
+]
+authors = [
+    { name = "Roberto Abdelkader Martínez Pérez", email = "robertomartinezp@gmail.com" }
+]
+requires-python = ">=3.7"
+
+dependencies=[
+"tox",
+"frozendict  ~= 2.4.6",
+"schema ~= 0.6.7"
+]
+[project.urls]
+Homepage= "https://github.com/nilp0inter/experta" 
+Documentation="https://experta.readthedocs.io/"
+
+[project.optional-dependencies]
+dev = [
+    "pytest-cov",
+    "pytest",
+    "coverage",
+    "hypothesis",
+    "hypothesis-pytest",
+    "pycodestyle",
+    "pydocstyle",
+    "codecov",
+    "twine",
+    "ipython",
+    "build"
+]
+
+[build-system] 
+requires = ["flit_core >=3.2,<4"] 
+build-backend = "flit_core.buildapi"
+
+[tool.pytest.ini_options] 
+markers = [ "slow: marks tests as slow (deselect with '-m \"not slow\"')"]
+testpaths=["tests"]
+
+
+
+[tool.pylint]
+disable = "missing-docstring, invalid-name"
+max-line-length = 120
+
+[tool.pycodestyle]
+show_source = true
+show_pep8 = true
+
+[tool.coverage.run]
+branch = true
+source = ["experta"]
+
+[tool.coverage.report]
+show_missing = true
+
+#
+[tool.tox]
+envlist = ["py35", "py36", "py37", "py38", "py313","pypy3"]
+requires = ["tox>=4.19"]
+allowlist_externals = ["pytest", "pycodestyle", "coverage"]
+
+[tool.tox.env_run_base]
+description = "Run test under {base_python}"
+deps = [".[dev]"]
+commands=[
+    ["pycodestyle","--show-source","--show-pep8", "experta"],
+    ["coverage","erase"],
+    ["pytest","--cov=experta", "--cov-report=xml", "-m", "not wip", "-v", "tests/unit"],
+    ["coverage", "combine"],
+    ["coverage", "report"],
+    ["coverage", "html"],
+
+    ]
+
+usedevelop = true
+setenv = { "PIPENV_VERBOSITY" = "-1" }
+
+[tool.tox.env.wip]
+deps = [".[dev]"]
+usedevelop = true
+setenv = { "PIPENV_VERBOSITY" = "-1" }
+
+commands = [
+    ["pycodestyle","--show-source","--show-pep8", "experta"],
+    ["pytest","--cov=experta", "--cov-report=xml", "-m", "wip", "-v", "tests/unit"]
+    ]
+        
